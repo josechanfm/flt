@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss']
+  modules: ['@nuxtjs/tailwindcss'],
+  runtimeConfig: {
+    public: {
+      DATA_SOURCE: process.env.DATA_SOURCE,
+    },
+  },
+
 })

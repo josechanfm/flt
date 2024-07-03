@@ -19,7 +19,7 @@
       </div>
 
       <div class="hidden sm:ml-6 sm:flex sm:space-x-8 pt-5">
-        <template v-for="item in navigations">
+        <template v-for="item in menus">
           <div v-if="item.children" class="relative">
             <button @click="showSubmenu=!showSubmenu" class="hover:border-b-2 border-blue-500 flex items-center space-x-1">
               <span>{{ item.name }}</span>
@@ -29,11 +29,11 @@
             </button>
             <div v-if="showSubmenu" class="absolute z-10 bg-white rounded-md py-2 mt-2 w-48">
               <template v-for="subItem in item.children">
-                <NuxtLink :to="subItem.href" class="block px-4 py-2 hover:bg-gray-200 text-gray-700 cursor-pointer">{{ subItem.name }}</NuxtLink>
+                <a :href="subItem.href" class="block px-4 py-2 hover:bg-gray-200 text-gray-700 cursor-pointer">{{ subItem.name }}</a>
               </template>
             </div>
           </div>
-          <NuxtLink v-else to="/" class="hover:border-b-2 border-blue-500 mb-5">{{ item.name }}</NuxtLink>
+          <a v-else href="/" class="hover:border-b-2 border-blue-500 mb-5">{{ item.name }}</a>
         </template>
       </div>
     </div>
@@ -42,7 +42,7 @@
   <!-- Mobile menu -->
   <div class="sm:hidden" v-if="mobileMenu">
     <div class="pt-2 pb-4 space-y-1">
-      <template v-for="item in navigations">
+      <template v-for="item in menus">
         <NuxtLink href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">{{ item.name }}</NuxtLink>
         <div v-if="item.children" class="pl-5">
           <NuxtLink v-for="subItem in item.children" :href="subItem.href" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">{{ subItem.name }}</NuxtLink>
@@ -66,15 +66,15 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 const showSubmenu = ref(false);
 const mobileMenu = ref(false);
 
-const navigations = [
+const menus = [
   { name: '出版主頁 Início das Publicações', href: '/', current: true },
   {
     name: '出版物 Publicações',
     href: '/publication',
     children: [
       { name: '所有出版物 Todas as Publicações', href: '/publications?cat=all' },
-      { name: '教材 Materiais Didácticos', href: '/publications?cat=materials' },
-      { name: '著作與參考書籍 Ensaios e Obras de Referência', href: '/publications?cat=books' },
+      { name: '教材 Materiais Didácticos', href: '/publications?cat=material' },
+      { name: '著作與參考書籍 Ensaios e Obras de Referência', href: '/publications?cat=book' },
     ],
   },
 ];

@@ -39,7 +39,7 @@ const articles = [
         author: 'Author Name 1',
         description:
             'Manuais e livros didáticos na área da língua portuguesa.',
-        readMoreUrl: 'publications?materials',
+        readMoreUrl: 'publications?cat=material',
     },
     {
         id: 2,
@@ -48,7 +48,7 @@ const articles = [
         author: 'Author Name 2',
         description:
             'Obras académicas sobre o universo lusófono, glossários e dicionários.',
-        readMoreUrl: 'publications?books',
+        readMoreUrl: 'publications?cat=book',
     }
 ];
 </script>

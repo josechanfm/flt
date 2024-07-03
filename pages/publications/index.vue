@@ -12,16 +12,16 @@
         </a>
     </div>
 </div>
-<template v-for="article in publications">
+<template v-for="publication in publications">
 <div class="flex items-start justify-between max-w-7xl mx-auto my-12 bg-red-50">
     <div class="w-64 flex-shrink-0">
-        <img :src="article.cover_url" alt="Card Image" class="w-full h-full object-cover">
+        <img :src="publication.cover_url" alt="Card Image" class="w-full h-full object-cover">
     </div>
     <div class="flex-1 px-10 py-8  text-teal-600">
-        <NuxtLink :href="'publications/'+article.id">
-        <div class="text-3xl font-medium">{{ article.title_zh }}</div>
-        <div class="text-3xl font-medium">{{ article.title_pt }}</div>
-        <div class="text-xl text-gray-700 line-clamp-2  pt-5">{{ article.author }}</div>
+        <NuxtLink :href="'publications/'+publication.id">
+        <div class="text-3xl font-medium">{{ publication.title_zh }}</div>
+        <div class="text-3xl font-medium">{{ publication.title_pt }}</div>
+        <div class="text-xl text-gray-700 line-clamp-2  pt-5">{{ publication.author }}</div>
         </NuxtLink>
     </div>
 </div>
@@ -30,29 +30,13 @@
 
 
 <script setup>
+const runtimeConfig = useRuntimeConfig();
 const route = useRoute()
-console.log(route.query.cat)
+const publications = ref(null)
 
-const { data:publications, error, pending, refresh } = await useFetch('http://localhost:8000/api/publications?unit=flt&cat='+route.query.cat)
+onMounted(async () => {
+  const response = await fetch(runtimeConfig.public.DATA_SOURCE+`publications?unit=flt&cat=${route.query.cat}`)
+  publications.value = await response.json()
+})
 
-
-const articles = [
-{
-    id: 1,
-    imageUrl: '/images/books/publication-r008-443x653.jpg',
-    title_zh: '實用葡漢翻譯教程 ',
-    title_pt: 'Aspectos Teórico-Práticos de Tradução - Português / Chinês',
-    author: '李長森、崔維孝',
-    description:'Manuais e livros didáticos na área da língua portuguesa.',
-    readMoreUrl: '#',
-},{
-    id: 2,
-    imageUrl: '/images/books/publication-2-443x646.jpg',
-    title_zh: '實用葡漢翻譯教程',
-    title_pt: 'Aspectos Teórico-Práticos de Tradução - Português / Chinês',
-    author: '李長森、崔維孝',
-    description:'Obras académicas sobre o universo lusófono, glossários e dicionários.',
-    readMoreUrl: '#',
-}
-];
 </script>
